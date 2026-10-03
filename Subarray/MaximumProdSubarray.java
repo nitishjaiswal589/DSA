@@ -1,0 +1,41 @@
+import java.util.Scanner;
+
+public class MaximumProdSubarray {
+    public int maxProduct(int[] nums) {
+        int prefix = 1;
+        int suffix = 1;
+        int maxproduct = Integer.MIN_VALUE;
+        int n = nums.length;
+        for(int i = 0; i < n; i++) {
+            if(prefix == 0) {
+                prefix = 1;
+            }
+            if(suffix == 0) {
+                suffix = 1;
+            }
+            prefix *= nums[i];
+            suffix *= nums[n-1-i];
+            maxproduct = Math.max(maxproduct, Math.max(prefix, suffix));
+        }
+        return maxproduct;
+    }
+    public static void main(String[] args) {
+        try(Scanner sc = new Scanner(System.in)) {
+            // Input Array Size
+            int n = sc.nextInt();
+
+            int[] nums = new int[n];
+
+            // Input Array Elements
+            for(int i = 0; i < n; i++) {
+                nums[i] = sc.nextInt();
+            }
+
+            MaximumProdSubarray obj = new MaximumProdSubarray();
+            int result = obj.maxProduct(nums);
+
+            System.out.print("Maximum Product Subarray is: ");
+            System.out.print(result);
+        }
+    }
+}
